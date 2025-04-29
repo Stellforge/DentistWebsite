@@ -1,47 +1,38 @@
-DentistWebsite – Çevrim İçi Doktor & Hasta Randevu Sistemi
+# DENTISTWEBSITE – ONLINE DOCTOR & PATIENT APPOINTMENT SYSTEM
 
-DentistWebsite, hastaların diledikleri doktorlardan hızlıca randevu alabilmesini, doktorların randevularını tek panelden yönetebilmesini ve yöneticilerin (admin) sistemi uçtan uca kontrol edebilmesini sağlayan uçtan uca bir web uygulamasıdır.
+> **DentistWebsite** enables patients to book appointments with their preferred doctors in seconds, gives doctors a single panel to manage those appointments, and lets administrators control the entire system end-to-end.
 
-🚀 Özellikler
+---
 
-👨‍⚕️ Hasta Tarafı
+## 🚀 FEATURES
 
-Doktorları uzmanlık alanına, konuma veya isme göre listeleme & filtreleme
+### 👨‍⚕️ PATIENT PORTAL
+- **LIST & FILTER DOCTORS** by specialty, location, or name  
+- View **DOCTOR PROFILES** (bio, working hours, reviews)  
+- **REQUEST AN APPOINTMENT** by selecting an available date & time  
+- Track **APPOINTMENT STATUS** (Pending / Approved / Cancelled) in a personal dashboard  
+- Use **CONTACT FORM** to reach the support team  
 
-Doktor profiline tıklayarak açıklama, çalışma saatleri ve yorumları görüntüleme
+### 🩺 DOCTOR PANEL
+- **ACCEPT / REJECT / RESCHEDULE** appointment requests  
+- Manage personal **WORK-HOUR CALENDAR**  
+- View **PATIENT MEDICAL HISTORY SUMMARIES**  
+- Update **PROFILE INFORMATION** (specialty, bio, photo, fee)  
+- Post **DOCTOR-ONLY ANNOUNCEMENTS**  
 
-Uygun tarih/saat seçerek randevu talebi oluşturma
+### 🛠️ ADMIN PANEL
+- **ROLE MANAGEMENT** (Admin, Doctor, Patient)  
+- **MANAGE DOCTORS**: Add / edit / delete, view profiles & statistics  
+- **FULL APPOINTMENT LIST**: filter, assign, reschedule, cancel  
+- **SYSTEM SETTINGS**: working hours, public holidays, email/SMS templates  
+- **DETAILED LOGS & REPORTS**: daily appointment count, cancellation rate, etc.  
 
-Kişisel kontrol panelinde randevu durumlarını (Beklemede / Onaylandı / İptal) takip etme
+---
 
-İletişim/mesaj formu üzerinden destek ekibiyle iletişime geçme
+## 👥 CONTRIBUTORS
 
-🩺 Doktor Paneli
-
-Gelen randevu taleplerini kabul / reddet / yeniden planla
-
-Çalışma gün–saat takvimi düzenleme
-
-Hastaların tıbbi geçmiş özetlerini görüntüleme
-
-Kişisel profil güncelleme (uzmanlık, biyografi, fotoğraf, ücret bilgisi)
-
-Doktora özel duyurumlar oluşturma
-
-🛠️ Admin Paneli
-
-Rol yönetimi 
-
-Doktor ekleme/düzenleme/silme, profilleri ve istatistikleri görüntüleme
-
-Randevu listesi: filtrele, atama yap, tarih değiştir, iptal et
-
-Sistem ayarları: çalışma saatleri, resmi tatil günleri, e‑posta/SMS şablonları
-
-Detaylı log ve rapor ekranları (günlük randevu sayısı, iptal oranı vb.)
-
-
-Çalışmada Bulunduğum Mühendisler
-- Halil Çınar (halil-cınar)
+- Halil Çınar (@halil-cınar)
 - Tunahan Arslan (@Tunahan-Arslan)
 - Ali Kurnaz (@Alikurnaz55)
+
+
