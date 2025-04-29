@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "AboutUpdate";
+    Layout = "~/Views/Shared/_DoktorRandevuLayout.cshtml";
+}
+
+@model AboutDto
+
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <div class="header-title">
+                    <h4 class="card-title">Hakkımda Güncelleme</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="new-user-info">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <input type="hidden" asp-for="Id" />
+                            <div class="form-group col-md-12">
+                                <label for="fname">Ne Yapıyoruz:</label>
+                                <input asp-for="OurWork" type="text" class="form-control" id="fname" placeholder="Ne Yapıyoruz.." required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="lname">Hedefimiz:</label>
+                                <input asp-for="Target" type="text" class="form-control" id="lname" placeholder="Hedefimiz.." required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="add1">Misyonumuz:</label>
+                                <input asp-for="MissionStatement" type="text" class="form-control" id="add1" placeholder="Misyonumuz.." required>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label for="cname">Açıklama:</label>
+                                <input asp-for="Explanation" type="text" class="form-control" id="cname" placeholder="Açıklama.." required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="cname">Geçerli Olsun Mu:</label>
+                                <input asp-for="IsValid" type="checkbox" class="form-control" id="cname" placeholder="Açıklama.." >
+                            </div>
+                            <button type="submit" class="btn btn-success">Hakkımda Güncelle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

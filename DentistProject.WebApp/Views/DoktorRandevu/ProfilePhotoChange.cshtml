@@ -1,0 +1,29 @@
+﻿@model UserDto
+@{
+    ViewData["Title"] = "ProfilePhotoChange";
+    Layout = "~/Views/Shared/_DoktorRandevuLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <strong>Profil Resmini Değiştir</strong>
+            </div>
+            <div class="card-body card-block">
+                <form action="/DoktorRandevu/ProfilePhotoChange" method="post" class="form-inline" enctype="multipart/form-data">
+                    <input type="hidden"  asp-for="Id" />
+                    <div class="  form-group">
+                        <div class="col col-md-3"><label for="file-input" class=" form-control-label">Dosya Seçiniz</label></div>
+                        <div class="col-12 col-md-9"><input type="file" required id="file-input" asp-for="ProfilePhoto" class="form-control-file"></div>
+                    </div>
+                    <button type="submit" class="btn btn-outline-success">Gönder</button>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

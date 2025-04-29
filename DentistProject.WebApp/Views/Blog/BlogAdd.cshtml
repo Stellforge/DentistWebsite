@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "BlogAdd";
+    Layout = "~/Views/Shared/_DoktorRandevuLayout.cshtml";
+}
+
+@model BlogDto
+@{
+    var categories = (ViewBag.Categories as List<BlogCategoryListDto>) ?? new List<BlogCategoryListDto>();
+}
+<h1>BlogAdd</h1>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <div class="header-title">
+                    <h4 class="card-title">Blog Ekleme</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="new-user-info">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label for="fname">Başlık:</label>
+                                <input asp-for="Title" type="text" class="form-control" id="fname" placeholder="Başlık Giriniz" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="lname">Özet:</label>
+                                <input asp-for="Abstract" type="text" class="form-control" id="lname" placeholder="özet" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="add1">İçerik:</label>
+                                <input asp-for="Content" type="text" class="form-control" id="add1" placeholder="içerik" required>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label for="cname">Anahtar Kelimeler:</label>
+                                <input asp-for="Keyword" type="text" class="form-control" id="cname" placeholder="Anahtar kelimeler , koyarak yazınız" required>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label>Kategori:</label>
+                                <select asp-for="CategoryId" class="form-control" id="selectcountry" required>
+                                    <option disabled selected>Kategori Seç</option>
+                                    @foreach (var item in categories)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label for="cname">Blog Fotoğrafı:</label>
+                                <input asp-for="Photo" type="file" class="form-control" id="cname" required>
+                            </div>
+                        </div>
+
+                            <div class="checkbox form-group col-md-12">
+                                <label><input asp-for="OnAir" class="mr-2" type="checkbox">Enable Two-Factor-Yayınlansın mı</label>
+                            </div>
+
+                        <button type="submit" class="btn btn-success">Blog Ekle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

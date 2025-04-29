@@ -1,0 +1,88 @@
+﻿@using DentistProject.Entities.Enum
+
+@{
+    ViewData["Title"] = "ChangeUserRole";
+    Layout = "~/Views/Shared/_DoktorRandevuLayout.cshtml";
+}
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_DoktorRandevuLayout.cshtml";
+}
+
+@model GenericLoadMoreDto<UserRoleListDto>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BlogListe</title>
+</head>
+<body>
+
+
+    <link rel="shortcut icon" href="~/calendify-lite/html/assets/images/favicon.ico" />
+    <link rel="stylesheet" href="~/calendify-lite/html/assets/css/backend-plugin.min.css">
+    <link rel="stylesheet" href="~/calendify-lite/html/assets/css/backend.css?v=1.0.1">
+    <link rel="stylesheet" href="~/calendify-lite/html/assets/vendor/@@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="~/calendify-lite/html/assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css">
+    <link rel="stylesheet" href="~/calendify-lite/html/assets/vendor/remixicon/fonts/remixicon.css">
+    <script src="https://kit.fontawesome.com/f08be16b3f.js" crossorigin="anonymous"></script>
+
+    <h1>Change User Role List</h1>
+    <table class="table table-bordered">
+        <tr>
+            <td align="center"><strong>Kullanıcı Adı</strong></td>
+            <td align="center"><strong>Eposta</strong></td>
+            <td align="center"><strong>Telefon</strong></td>
+            <td align="center"><strong>Rol</strong></td>
+            <td align="center"><strong>Sil</strong></td>
+
+        </tr>
+        <!--MVC @@foreach-->
+        @if (Model?.Values?.Count > 0)
+        {
+            @foreach (var item in Model.Values)
+            {
+                <tr>
+                    <td>@item.User.FullName</td>
+                    <td>@item.User.Email</td>
+                    <td>@item.User.Phone </td>
+                    <td>@item.Role </td>
+                    @if (ViewBag.CanDelete == true)
+                    {
+                        <td align="center"><a href="/DeleteUserRole/@item.Id" class="fa-solid fa-trash" style="color:red; font-size:20px;"></a></td>
+                    }
+
+                </tr>
+            }
+
+
+        }
+
+        <tr>
+            <td colspan="2">
+            </td>
+            <td colspan="2">
+                <form method="get" action="/AddUserRole">
+                    <input type="hidden" name="UserId" value="@ViewBag.UserId" />
+                    <select name="Role" required>
+                        <option value="" disabled selected>Rol Seçiniz</option>
+                        @foreach (var item in Enum.GetValues<ERoleType>())
+                        {
+                            <option value="@((int)item)">@item.ToString()</option>
+                        }
+                    </select>
+                    <button type="submit" class="btn btn-success">Ekle</button>
+                </form>
+            </td>
+
+        </tr>
+        <!---->
+    </table>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DentistProject.Entities.Enum
+{
+    public enum ESocialMediaType
+    {
+        Facebook=0,
+        Instagram,
+        X,
+        Other,
+        Youtube
+
+    }
+}

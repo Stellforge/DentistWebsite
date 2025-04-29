@@ -1,0 +1,173 @@
+﻿@{
+    ViewBag.Title = "Blog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model GenericLoadMoreDto<BlogListDto>
+
+@{
+    var categories = ViewBag.Categories as GenericLoadMoreDto<BlogCategoryListDto>;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>DentaCare - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/animate.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/aos.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/jquery.timepicker.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/flaticon.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/icomoon.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/style.css">
+</head>
+<body>
+
+    <section class="home-slider owl-carousel">
+        <div class="slider-item bread-item" style="background-image: url('../../dentacare-gh-pages/images/bg_1.jpg');" data-stellar-background-ratio="0.5">
+            <div class="overlay"></div>
+            <div class="container" data-scrollax-parent="true">
+                <div class="row slider-text align-items-end">
+                    <div class="col-md-7 col-sm-12 ftco-animate mb-5">
+                        <p class="breadcrumbs" data-scrollax=" properties: { translateY: '70%', opacity: 1.6}"></p>
+                        <h1 class="mb-3" data-scrollax=" properties: { translateY: '70%', opacity: .9}">Bloglarımızı Okuyun</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="row">
+
+                        @if (Model?.Values?.Count > 0)
+                        {
+                            foreach (var item in Model?.Values)
+                            {
+
+                                <div class="col-md-12 ftco-animate">
+                                    <div class="blog-entry">
+                                        <a href="/Blog/@item.Id" class="block-20" style="background-image: url('/Media/@item.PhotoId');">
+                                        </a>
+                                        <div class="text d-flex py-4">
+                                            <div class="meta mb-3">
+                                                <div><a href="#">@item.PublicationDate.ToShortDateString()</a></div>
+                                                <div><a href="#">@item.User.FullName</a></div>
+                                                @*                                                 <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                                        *@
+                                            </div>
+                                            <div class="desc pl-sm-3 pl-md-5">
+                                                <h3 class="heading"><a href="#">@item.Title</a></h3>
+                                                <p>@item.Abstract</p>
+                                                <p><a href="/Blog/@item.Id" class="btn btn-primary btn-outline-primary">Devamını Oku</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col">
+                            <div class="block-27">
+                                <ul>
+                                    <li><a href="/Blog?page=@((Model?.PageCount-1>0)?Model?.PageCount-1:0)@((ViewBag.CategoryId!=null)?"&category="+ViewBag.CategoryId:"")@((ViewBag.Search!=null)?"&search="+ViewBag.Search:"")">&lt;</a></li>
+                                    @for (int i = 0; i < Model?.TotalPageCount; i++)
+                                    {
+                                        <li class="@((i==Model?.PageCount)?"active":"")"><span>@(i + 1)</span></li>
+
+                                    }
+
+                                    <li><a href="/Blog?page=@((Model?.PageCount+1<Model?.TotalPageCount)?Model?.PageCount+1:Model?.TotalPageCount-1)@((ViewBag.CategoryId!=null)?"&category="+ViewBag.CategoryId:"")@((ViewBag.Search!=null)?"&search="+ViewBag.Search:"")">&gt;</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- END: col-md-8 -->
+                <div class="col-md-4 sidebar ftco-animate">
+                    <div class="sidebar-box">
+                        <form method="get" class="search-form">
+                            <div class="form-group">
+                                <span class="icon fa fa-search"></span>
+                                <input type="text" name="search" class="form-control" placeholder="Kelime ara">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="sidebar-box ftco-animate">
+                        <div class="categories">
+                            <h3>Kategoriler</h3>
+                            <ul>
+                                @if (categories?.Values?.Count > 0)
+                                {
+                                    foreach (var item in categories.Values)
+                                    {
+
+                                        <li><a href="/Blog?category=@item.Id@((ViewBag.Search!=null)?"&search="+ViewBag.Search:"")">@item.Name</a></li>
+                                    }
+                                }
+                               
+                            </ul>
+                        </div>
+                    </div>
+
+                   @*  <div class="sidebar-box ftco-animate">
+                        <h3>Son Bloglar</h3>
+                        <div class="block-21 mb-4 d-flex">
+                            <a class="blog-img mr-4" style="background-image: url(../../dentacare-gh-pages/images/image_1.jpg);"></a>
+                            <div class="text">
+                                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+                                <div class="meta">
+                                    <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
+                                    <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> *@
+
+                  
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+
+    <!-- Modal -->
+
+
+
+    <script src="~/dentacare-gh-pages/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/popper.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/bootstrap.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery.easing.1.3.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery.waypoints.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery.stellar.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/owl.carousel.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/aos.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery.animateNumber.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/bootstrap-datepicker.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery.timepicker.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="~/dentacare-gh-pages/js/google-map.js"></script>
+    <script src="~/dentacare-gh-pages/js/main.js"></script>
+
+</body>
+</html>

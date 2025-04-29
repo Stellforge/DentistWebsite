@@ -1,0 +1,283 @@
+﻿@using DentistProject.Business.Abstract
+
+@inject ISystemSettingService _systemSettingService
+@inject IContactService _contactService
+@inject IDentistService _dentistService
+@inject IHttpContextAccessor _context
+@inject IAccountService _accountService
+
+@{
+    string? logoId = null;
+    var logoResult = await _systemSettingService.GetLogo();
+    if (logoResult.Status == EResultStatus.Success)
+    {
+        logoId = logoResult.Result.Value;
+
+    }
+
+    var contactResult = await _contactService.GetAll(new LoadMoreFilter<DentistProject.Filters.Filter.ContactFilter>
+            {
+                ContentCount = 1,
+                PageCount = 0,
+                Filter = new DentistProject.Filters.Filter.ContactFilter
+                {
+                    Validity = true
+                }
+            });
+    var contact = new ContactListDto();
+    if (contactResult.Status == EResultStatus.Success && contactResult.Result != null)
+    {
+        contact = contactResult.Result.Values.FirstOrDefault();
+    }
+
+
+    var dentistResult = await _dentistService.GetAll(new DentistProject.Dtos.Filter.LoadMoreFilter<DentistProject.Filters.Filter.DentistFilter>
+            {
+                ContentCount = int.MaxValue,
+                PageCount = 0,
+
+            });
+    var dentists = new GenericLoadMoreDto<DentistListDto>();
+    if (dentistResult.Status == DentistProject.Dtos.Enum.EResultStatus.Success)
+    {
+        dentists = dentistResult.Result;
+    }
+
+
+}
+
+
+
+@{
+    long? loginUserId = null;
+    UserListDto user;
+    var token = _context?.HttpContext?.Request?.Cookies?["AuthToken"]??"";
+    var sessionResult = await _accountService.GetSession(token);
+
+    if (sessionResult.Status == EResultStatus.Success)
+    {
+        loginUserId = sessionResult.Result?.UserId;
+        user = sessionResult.Result?.User;
+    }
+
+
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Dentist Project</title>
+    @*     @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr") *@
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/animate.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/aos.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/jquery.timepicker.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/flaticon.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/icomoon.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="@((logoId!=null)?"/Media/"+logoId:"~/images/logo.png")" height="50" style="max-height:250px" />
+
+                @* Denta<span>Care</span> *@
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto ">
+                    <li class="nav-item @(ViewData["PageId"]=="1"?"active":"")"><a href="/" class="nav-link">Ana Sayfa</a></li>
+                    <li class="nav-item @(ViewData["PageId"]=="2"?"active":"")"><a href="/About" class="nav-link">Hakkımızda</a></li>
+                    <li class="nav-item @(ViewData["PageId"]=="3"?"active":"")"><a href="/Services" class="nav-link">Servisler</a></li>
+                    <li class="nav-item @(ViewData["PageId"]=="4"?"active":"")"><a href="/Doctors" class="nav-link">Doktorlar</a></li>
+                    <li class="nav-item @(ViewData["PageId"]=="5"?"active":"")"><a href="/Blog" class="nav-link">Blog</a></li>
+                    <li class="nav-item @(ViewData["PageId"]=="6"?"active":"")"><a href="/Contact" class="nav-link">İletişim</a></li>
+                    @if (loginUserId == null)
+                    {
+                        <li class="nav-item @(ViewData["PageId"]=="7"?"active":"")"><a href="/Account" class="nav-link">Kayıt Ol/Giriş Yap</a></li>
+                    }else{
+                        <li class="nav-item @(ViewData["PageId"]=="7"?"active":"")"><a href="/DoktorRandevu" class="nav-link">Yönetim Paneli</a></li>
+                        <li class="nav-item @(ViewData["PageId"]=="7"?"active":"")"><a href="/Account/LogOut" class="nav-link">Çıkış Yap</a></li>
+
+                    }
+                    <li class="nav-item cta"><a href="/Contact" class="nav-link" data-toggle="modal" data-target="#modalRequest"><span>Randevu Al</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        @RenderBody()
+        <hr />
+        <div class="modal fade" id="modalRequest" tabindex="-1" role="dialog" aria-labelledby="modalRequestLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="margin-left:-100px;margin-right:-100px;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <section class="ftco-intro">
+                        <div class="col-lg-12 color-3 p-4">
+                            <h3 class="mb-2">Randevu Al</h3>
+                            <form action="/AppoimentRequest/Add" method="post" class="appointment-form">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <div class="select-wrap">
+                                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                                <select name="DentistId" id="" class="form-control">
+                                                    <option value="" class="bg-info" selected disabled>Doktor seçiniz</option>
+                                                    @if (dentists?.Values?.Count > 0)
+                                                    {
+                                                        foreach (var item in dentists.Values)
+                                                        {
+                                                            <option value="@item.Id" class="bg-info">@item.User.FullName</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <div class="icon"><span class="icon-user"></span></div>
+                                            <input type="text" name="Patient.User.Name" class="form-control" id="appointment_name" placeholder="İsim">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <div class="icon"><span class="icon-user"></span></div>
+                                            <input type="text" name="Patient.User.Surname" class="form-control" id="appointment_name" placeholder="Soyisim">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <div class="icon"><span class="icon-paper-plane"></span></div>
+                                            <input type="text" name="Patient.User.Email" class="form-control" id="appointment_email" placeholder="E-Posta">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <div class="icon"><span class="icon-phone2"></span></div>
+                                            <input type="text" name="Patient.User.Phone" class="form-control" id="phone" placeholder="Telefon">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <div class="icon"><span class="icon-phone2"></span></div>
+                                            <input type="text" name="Message" class="form-control" id="phone" placeholder="Mesajınız">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <div class="icon"><span class="ion-ios-calendar"></span></div>
+                                            <input name="StartTime" type="datetime-local" class="form-control " placeholder="Müsaitlik başlangıç tarihiniz">
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <div class="icon"><span class="ion-ios-calendar"></span></div>
+                                            <input name="FinishTime" type="datetime-local" class="form-control " placeholder="Müsaitlik bitiş tarihiniz">
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="submit" value="Randevu Al" class="btn btn-primary">
+                                </div>
+                            </form>
+                        </div>
+
+                    </section>
+                </div>
+            </div>
+        </div>
+        <footer class="ftco-footer ftco-bg-dark ftco-section">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-md-6">
+                        <div class="ftco-footer-widget mb-4">
+                            <h2 class="ftco-heading-2">DentaCare.</h2>
+                            <p>Kaliteli, uzman ve tanınmış kadromuz sayesinde diş sorunlarınıza kökten çözüm. Sosyal platformlardan bizi takip edebilirsiniz.</p>
+                        </div>
+                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft ">
+                            <li class="ftco-animate"><a href="@contact?.XLink"><span class="icon-twitter"></span></a></li>
+                            <li class="ftco-animate"><a href="@contact?.FacebookLink"><span class="icon-facebook"></span></a></li>
+                            <li class="ftco-animate"><a href="@contact?.InstagramLink"><span class="icon-instagram"></span></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="ftco-footer-widget mb-4 ml-md-5">
+                            <h2 class="ftco-heading-2">Hızlı Bağlantılar</h2>
+                            <ul class="list-unstyled">
+                                <li><a href="/Services" class="py-2 d-block">Servisler</a></li>
+                                <li><a href="/Doctors" class="py-2 d-block">Doktorlar</a></li>
+                                <li><a href="/Blog" class="py-2 d-block">Blog</a></li>
+                                <li><a href="/Contact" class="py-2 d-block">İletişim</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> Tüm Hakları Saklıdır <i class="icon-heart" aria-hidden="true"></i>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    @*     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap") *@
+    @RenderSection("scripts", required: false)
+
+    <script src="~/dentacare-gh-pages/js/jquery.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/popper.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/bootstrap.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery.easing.1.3.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery.waypoints.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery.stellar.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/owl.carousel.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/aos.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery.animateNumber.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/bootstrap-datepicker.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery.timepicker.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="~/dentacare-gh-pages/js/google-map.js"></script>
+    <script src="~/dentacare-gh-pages/js/main.js"></script>
+    @await Component.InvokeAsync("NToastNotify")
+
+</body>
+</html>

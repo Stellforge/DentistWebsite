@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "PrivateSecuritySettings";
+    Layout = "~/Views/Shared/_DoktorRandevuLayout.cshtml";
+}
+@model GenericLoadMoreDto<SystemSettingListDto>
+<div class="content-page">
+    <div class="container-fluid container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Sistem Ayarları</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="acc-privacy">
+                            @if (Model?.Values?.Count > 0)
+                            {
+                                @foreach (var item in Model.Values)
+                                {
+                                    if(item.Key!=DentistProject.Entities.Enum.ESettingKey.Logo){
+                                    <form action="/SystemSetting/@item.Id" method="post" class="data-privacy">
+                                        <h4 class="mb-2" >@item.Name</h4>
+                                        <div class="custom-control  custom-control-inline">
+                                            <input type="hidden" value="@item.Key" name="Key" />
+                                            <input type="hidden" value="@item.Description" name="Description" />
+                                            <input type="hidden" value="@item.Name" name="Name" />
+                                            <input type="text" name="value" class="custom-control-text" value="@item.Value">
+                                            <span><button type="submit" class="btn btn-success">Güncelle</button></span>
+                                        </div>
+                                        <p >
+                                            @item.Description
+                                        </p>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form action="/SystemSetting/Logo/@item.Id" method="post" class="data-privacy" enctype="multipart/form-data">
+                                            <h4 class="mb-2">@item.Name</h4>
+                                            <div class="custom-control  custom-control-inline d-flex align-items-center">
+                                                <input type="hidden" value="@item.Id" name="Id" />
+                                                <input type="hidden" value="@item.Key" name="Key" />
+                                                <input type="hidden" value="@item.Description" name="Description" />
+                                                <input type="hidden" value="@item.Name" name="Name" />
+                                                <img width="100" src="/Media/@item.Value"/>
+                                                <input type="file" name="File" class="custom-control-text" >
+                                                <span><button type="submit" class="btn btn-success">Güncelle</button></span>
+                                            </div>
+                                            <p>
+                                                @item.Description
+                                            </p>
+                                        </form>
+                                    }
+                                    <hr>
+                                }
+                            }
+
+                          
+                        
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

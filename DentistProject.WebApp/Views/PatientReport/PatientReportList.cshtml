@@ -1,0 +1,94 @@
+﻿@{
+    ViewData["Title"] = "PatientReportList";
+    Layout = "~/Views/Shared/_DoktorRandevuLayout.cshtml";
+}
+
+<h1>Hasta Rapor Listesi</h1>
+
+@model GenericLoadMoreDto<PatientReportListDto>
+
+<link rel="shortcut icon" href="~/calendify-lite/html/assets/images/favicon.ico" />
+<link rel="stylesheet" href="~/calendify-lite/html/assets/css/backend-plugin.min.css">
+<link rel="stylesheet" href="~/calendify-lite/html/assets/css/backend.css?v=1.0.1">
+<link rel="stylesheet" href="~/calendify-lite/html/assets/vendor/@@fortawesome/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="~/calendify-lite/html/assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css">
+<link rel="stylesheet" href="~/calendify-lite/html/assets/vendor/remixicon/fonts/remixicon.css">
+<script src="https://kit.fontawesome.com/f08be16b3f.js" crossorigin="anonymous"></script>
+
+<table class="table table-danger">
+    <tr>
+        <td colspan="6" style="text-align:end;">
+            <form method="get">
+                @if (ViewBag.Page != null)
+                {
+                    <input type="hidden" name="page" value="@ViewBag.Page" />
+                }
+                <input type="text" name="query" value="@ViewBag.Query" class="" placeholder="Servis Adı arayın.." />
+                <button type="submit" class="btn btn-info">Ara</button>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <th align="center">Başlık</th>
+        <th align="center">Açıklama</th>
+        <th align="center">Hasta İsim - Soy İsim</th>
+        <th align="center">Güncelle</th>
+        <th align="center">Sil</th>
+        <th align="center">Detay</th>
+    </tr>
+    <!--MVC @@foreach-->
+    @if (Model?.Values?.Count > 0)
+    {
+        @foreach (var x in Model.Values)
+        {
+            <tr>
+                <td>@x.Title</td>
+                <td>@x.Explanation</td>
+                <td>@x.Patient.User?.FullName</td>
+                @if (ViewBag.CanUpdate == true)
+                {
+                    <td align="center"><a href="/PatientReportUpdate/@x.Id" class="far fa-pen-to-square" style="color:green; font-size:20px;"></a></td>
+                }
+                @if (ViewBag.CanDelete == true)
+                {
+                    <td align="center"><a href="/PatientReportDelete/@x.Id" class="fa-solid fa-trash" style="color:red; font-size:20px;"></a></td>
+                }
+                <td align="center"><a href="/PatientReportDetail/@x.Id" class="fa-solid fa-copy" style="color:blue; font-size:20px;"></a></td>
+            </tr>
+        }
+    }
+    <!---->
+</table>
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-end">
+        <li class="page-item @((Model?.PageCount<=0)?"disabled":"")">
+            <form method="get">
+                <input type="hidden" value="@((Model?.PageCount-1>0)?Model?.PageCount-1:0)" name="page" />
+                <input type="hidden" value="@((ViewBag.Query!=null)?"&search="+ViewBag.Query:"")" name="query" />
+
+                <button class="page-link" tabindex="-1" aria-disabled="true">Önceki</button>
+            </form>
+        </li>
+
+        @for (int i = 0; i < Model?.TotalPageCount; i++)
+        {
+            <li class="page-item @(i==Model?.PageCount?"active":"")">
+                <form method="get">
+                    <input type="hidden" value="@i" name="page" />
+                    <input type="hidden" value="@((ViewBag.Query!=null)?"&search="+ViewBag.Query:"")" name="query" />
+
+                    <button class="page-link" tabindex="-1" aria-disabled="true">@(i + 1)</button>
+                </form>
+            </li>
+        }
+
+        <li class="page-item @((Model?.PageCount+1>=(Model?.TotalPageCount??0))?"disabled":"")">
+            <form method="get">
+                <input type="hidden" value="@((Model?.PageCount+1<Model?.TotalPageCount)?Model?.PageCount+1:Model?.TotalPageCount-1)" name="page" />
+                <input type="hidden" value="@((ViewBag.Query!=null)?"&search="+ViewBag.Query:"")" name="query" />
+
+                <button class="page-link" tabindex="-1" aria-disabled="true">Sonraki</button>
+            </form>
+        </li>
+    </ul>
+</nav>

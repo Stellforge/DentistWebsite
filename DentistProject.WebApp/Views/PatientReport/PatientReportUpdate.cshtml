@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "PatientReportUpdate";
+    Layout = "~/Views/Shared/_DoktorRandevuLayout.cshtml";
+}
+
+<h1>PatientReportUpdate</h1>
+@{
+    var patients = ViewBag.Patients as List<PatientListDto>;
+    patients = patients ?? new List<PatientListDto>();
+}
+@model PatientReportDto
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <div class="header-title">
+                    <h4 class="card-title">Hasta Rapor Ekleme</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="new-user-info">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <input type="hidden" asp-for="Id" />
+                                <label for="fname">Hasta Adı:</label>
+                                <select id="patientId" asp-for="PatientId">
+                                    <option value="" selected disabled>Hasta Seçiniz..</option>
+                                    @foreach (var item in ViewBag.Patients as List<PatientListDto>)
+                                    {
+                                        <option value="@item?.Id">@(item?.User?.FullName + " - " + item?.User?.Email + " - " + item?.User?.Phone + "")</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="lname">Başlık:</label>
+                                <input type="text" asp-for="Title" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="lname">Açıklama:</label>
+                                <input type="text" asp-for="Explanation" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="lname">Rapor Türü:</label>
+                                <input type="text" asp-for="ReportType" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="lname">Hasta Rapor Belge:</label>
+                                <input type="file" asp-for="File" />
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success">Rapor Güncelle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+﻿@using DentistProject.Entities.Enum
+@{
+    ViewData["Title"] = "UserProfileSettings";
+    Layout = "~/Views/Shared/_DoktorRandevuLayout.cshtml";
+}
+
+    @model UserDto
+
+<div class="content-page">
+    <div class="container-fluid container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Profil Ayarları</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="acc-edit">
+                            <form method="post">
+                                <input asp-for="Id" type="hidden"/>
+                                <div class="form-group">
+                                    <label for="altemail">İsim</label>
+                                    <input asp-for="Name" required type="text" class="form-control" id="altemail" placeholder="İsim">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Aboutme">Soisim:</label>
+                                    <input asp-for="Surname" required type="text" class="form-control" id="aboutme" placeholder="Soyisim">
+                                </div>
+                                <div class="form-group">
+                                    <label for="uname">Telefon:</label>
+                                    <input asp-for="Phone" required type="tel" class="form-control" id="uname" placeholder="(+**) *** *** ** **)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input asp-for="Email" required type="email" class="form-control" id="email" placeholder="...@@gmail.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Title">Address:</label>
+                                    <input asp-for="Address" required type="text" class="form-control" id="title" placeholder="Adress ">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Awards">Cinsiyet:</label>
+                                    <select>
+                                        <option>Lütfen seç</option>
+                                        @foreach (var item in Enum.GetValues<EGender>())
+                                        {
+                                            <option value="@((int)item)">@item.ToString()</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Experience">Doğum tarihi:</label>
+                                    <input asp-for="BirthDate" required type="date" class="form-control" id="experience" placeholder="**-**-****">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Password">Şifrenizi Değiştirmek için -> </label>
+                                    <a class="btn btn-primary" href="/DoktorRandevu/ChangePassword">Şifre Değiştir</a>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ProfilePhoto">Profil Resminizi Değiştirmek için -></label>
+                                    <a class="btn btn-primary" href="/DoktorRandevu/ProfilePhotoChange"> Resmi Değiştir</a>
+                                </div>
+
+
+                                <button type="submit" class="btn btn-primary">Kaydet</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

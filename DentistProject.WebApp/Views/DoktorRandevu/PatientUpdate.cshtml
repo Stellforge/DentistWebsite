@@ -1,0 +1,105 @@
+﻿@using DentistProject.WebApp.Enums
+@model PatientDto
+@{
+    ViewData["Title"] = "PatientUpdate";
+    Layout = "~/Views/Shared/_DoktorRandevuLayout.cshtml";
+}
+
+
+<div class="content-page">
+    <div class="container-fluid container">
+
+        <form method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="User.Id" />
+            <div class="row">
+                <div class="col-xl-2 col-lg-4">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Hasta Ekle</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <div class="crm-profile-img-edit position-relative">
+                                    <img class="crm-profile-pic rounded-circle avatar-100" src="/Media/@((int)EMediaKey.Person)" style="margin:20px;" alt="profile-pic">                                  
+                                </div>                           
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-10 col-lg-8">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Hasta Bilgileri</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="new-user-info">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="fname">İsim:</label>
+                                        <input asp-for="User.Name" type="text" class="form-control" id="fname" >
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="lname">Soyisim:</label>
+                                        <input asp-for="User.Surname" type="text" class="form-control" id="lname" >
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="add1">Açık Adres 1:</label>
+                                        <input asp-for="User.Address" type="text" class="form-control" id="add1" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="mobno">Telefon Numarası:</label>
+                                        <input asp-for="User.Phone" type="text" class="form-control" id="mobno" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="altconno">
+                                            Alternatif İletişim:
+                                        </label>
+                                        <input asp-for="Phone2" type="text" class="form-control" id="altconno" >
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="email">Email:</label>
+                                        <input asp-for="User.Email" type="email" class="form-control" id="email" >
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="kimlikno">Kimlik No:</label>
+                                        <input asp-for="IdentityNumber" type="text" class="form-control" id="kimlikno"  required>
+                                    </div>
+                                    @* <div class="form-group col-sm-12">
+                                    <label>Country:</label>
+                                    <select class="form-control" id="selectcountry">
+                                    <option>Ülke Seç</option>
+                                    <option>Türkiye</option>
+                                    <option>Almanya</option>
+                                    <option>USA</option>
+                                    <option>Fransa</option>
+                                    <option>Suriye</option>
+                                    </select>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                    <label for="city">İl/Şehir:</label>
+                                    <input type="text" class="form-control" id="city" placeholder="İl/Şehir">
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                    <label for="city">İlçe:</label>
+                                    <input type="text" class="form-control" id="city" placeholder="İlçe">
+                                    </div> *@
+                                </div>
+                                <button type="submit" class="btn btn-primary">Hasta Güncelle</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+
+    </div>
+</div>
+

@@ -1,0 +1,123 @@
+﻿@{
+    ViewData["Title"] = "ProfileSettings";
+    Layout = "~/Views/Shared/_DoktorRandevuLayout.cshtml";
+}
+@model DentistDto
+@{
+    var socialList = ViewBag.DentistSocialList as List<DentistSocialListDto>;
+}
+<div class="content-page">
+    <div class="container-fluid container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Profil Ayarları</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="acc-edit">
+                            <form method="post">
+                                <input type="hidden" asp-for="Id" />
+                                <input type="hidden" asp-for="User.Id" />
+                              
+                                <div class="form-group">
+                                    <label for="uname">Telefon:</label>
+                                    <input asp-for="User.Name" required type="text" class="form-control" id="uname" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="uname">Telefon:</label>
+                                    <input asp-for="User.Surname" required type="text" class="form-control" id="uname" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="uname">Telefon:</label>
+                                    <input asp-for="User.Phone" required type="tel" class="form-control" id="uname" placeholder="(+**) *** *** ** **)">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Kişisel Email:</label>
+                                    <input asp-for="User.Email" required type="email" class="form-control" id="email" placeholder="Furkaner@gmail.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="altemail">Resmi Email:</label>
+                                    <input asp-for="Email"  type="email" class="form-control" id="altemail" placeholder="Furkanerresmi@gmail.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Aboutme">Hakkımda:</label>
+                                    <input asp-for="Explantion" required type="text" class="form-control" id="aboutme" placeholder="Merhabalar Ben Doktor Furkan Erçelebi...">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Title">Ünvan:</label>
+                                    <input asp-for="Title" required type="text" class="form-control" id="title" placeholder="Prof. Dr. ">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Awards">Ödül:</label>
+                                    <input asp-for="Awards" required type="number" class="form-control" id="awards" placeholder="42">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Experience">Mesleğe Başlangıç Tarihi:</label>
+                                    <input asp-for="JobStartDate" required type="date" class="form-control" id="experience" placeholder="**-**-****">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Password">Şifrenizi Değiştirmek için -> </label>
+                                    <a class="btn btn-primary" href="/DoktorRandevu/ChangePassword">Şifre Değiştir</a>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ProfilePhoto">Profil Resminizi Değiştirmek için -></label>
+                                    <a class="btn btn-primary" href="/DoktorRandevu/ProfilePhotoChange"> Resmi Değiştir</a>
+                                </div>
+
+
+
+                                <button type="submit" class="btn btn-primary">Kaydet</button>
+                                <button type="reset" class="btn iq-bg-danger">Sıfırla</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+@*             <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Sosyal Medya</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="acc-edit">
+                            <form method="post" action="/ProfileSettingsSocial">
+                         
+                                <input type="hidden" value="@Model.Id" name="Id"/>
+                                <div class="form-group">
+                                    <label for="facebook">Facebook:</label>
+                                    <input name="FacebookLink" type="text" class="form-control" id="facebook" placeholder="www.facebook.com" value="@socialList?.Where(x=>x.SocialMediaType==DentistProject.Entities.Enum.ESocialMediaType.Facebook)?.FirstOrDefault()?.Link">
+                                </div>
+                                <div class="form-group">
+                                    <label for="twitter">Twitter:</label>
+                                    <input name="XLink" type="text" class="form-control" id="twitter" placeholder="www.twitter.com" value="@socialList?.Where(x=>x.SocialMediaType==DentistProject.Entities.Enum.ESocialMediaType.X)?.FirstOrDefault()?.Link">
+                                </div>
+                                <div class="form-group">
+                                    <label for="google">Website:</label>
+                                    <input name="WebsiteLink" type="text" class="form-control" id="google" placeholder="www.google.com" value="@socialList?.Where(x=>x.SocialMediaType==DentistProject.Entities.Enum.ESocialMediaType.Other)?.FirstOrDefault()?.Link">
+                                </div>
+                                <div class="form-group">
+                                    <label for="instagram">Instagram:</label>
+                                    <input name="InstagramLink" type="text" class="form-control" id="instagram" placeholder="www.instagram.com" value="@socialList?.Where(x=>x.SocialMediaType==DentistProject.Entities.Enum.ESocialMediaType.Instagram)?.FirstOrDefault()?.Link">
+                                </div>
+                                <div class="form-group">
+                                    <label for="youtube">Youtube:</label>
+                                    <input name="YoutubeLink" type="text" class="form-control" id="youtube" placeholder="www.youtube.com" value="@socialList?.Where(x=>x.SocialMediaType==DentistProject.Entities.Enum.ESocialMediaType.Youtube)?.FirstOrDefault()?.Link">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Kaydet</button>
+                                <button type="reset" class="btn iq-bg-danger">Sıfırla</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div> *@
+        </div>
+    </div>
+</div>
+

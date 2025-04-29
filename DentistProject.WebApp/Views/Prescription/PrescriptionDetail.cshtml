@@ -1,0 +1,93 @@
+﻿@{
+    ViewData["Title"] = "Prescription";
+    Layout = "~/Views/Shared/_DoktorRandevuLayout.cshtml";
+}
+@model PatientPrescriptionListDto
+
+@{
+    var medicines = ViewBag.Medicines as GenericLoadMoreDto<PatientPrescriptionMedicineListDto>;
+}
+
+<link rel="shortcut icon" href="~/calendify-lite/html/assets/images/favicon.ico" />
+<link rel="stylesheet" href="~/calendify-lite/html/assets/css/backend-plugin.min.css">
+<link rel="stylesheet" href="~/calendify-lite/html/assets/css/backend.css?v=1.0.1">
+<link rel="stylesheet" href="~/calendify-lite/html/assets/vendor/@@fortawesome/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="~/calendify-lite/html/assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css">
+<link rel="stylesheet" href="~/calendify-lite/html/assets/vendor/remixicon/fonts/remixicon.css">
+<script src="https://kit.fontawesome.com/f08be16b3f.js" crossorigin="anonymous"></script>
+
+<h1>Prescription</h1>
+
+<table class="table table-danger">
+    <tr>
+        <th colspan="4" style="text-align:center; font-size:45px; background-color:lightyellow;">Hasta</th>
+    </tr>
+    <!--MVC-->
+    <tr>
+        <th>TC Kimlik No:</th>
+        <td>@Model?.Patient?.IdentityNumber</td>
+    </tr>
+    <tr>
+        <th>Adı:</th>
+        <td>@Model?.Patient?.User?.Name</td>
+    </tr>
+    <tr>
+        <th>Soy Adı:</th>
+        <td>@Model?.Patient?.User?.Surname</td>
+    </tr>
+    <tr>
+        <th>Doğum Tarihi:</th>
+        <td>@Model?.Patient?.User?.BirthDate</td>
+    </tr>
+    <tr>
+        <th>Cinsiyeti:</th>
+        <td>@Model?.Patient?.User?.Gender</td>
+    </tr>
+    <!---->
+    <tr>
+        <th colspan="4" style="text-align:center; font-size:45px; background-color:lightyellow;">Doktor</th>
+    </tr>
+    <!--MVC-->
+    <tr>
+        <th>Adı:</th>
+        <td>@Model?.Dentist?.User?.Name</td>
+    </tr>
+    <tr>
+        <th>Soy Adı:</th>
+        <td>@Model?.Dentist?.User?.Surname</td>
+    </tr>
+    <tr>
+        <th>Ünvanı:</th>
+        <td>@Model?.Dentist?.Title</td>
+    </tr>
+    <!---->
+    <tr>
+        <th colspan="4" style="text-align:center; font-size:45px; background-color:lightyellow;">İlaç</th>
+    </tr>
+    <!--MVC-->
+    @if (medicines?.Values?.Count > 0)
+    {
+        int i = 0;
+        foreach (var item in medicines.Values)
+        {
+            i++;
+            <tr>
+                <th>İlaç-@i:</th>
+                <td>@item.Medicine</td>
+                <td></td>
+                <td><a href="/MedicineDelete/@item.Id" class="fa-solid fa-trash" style="color:red; font-size:20px;"></a></td>
+            </tr>
+        }
+    }
+    <tr>
+        <td></td>
+        <td colspan="3" style="text-align:end;">
+            <form method="post" action="/MedicineAdd">
+                <input name="Medicine" type="text" />
+                <input name="PatientPrescriptionId" type="hidden" value="@Model?.Id" />
+                <button type="submit" class="btn btn-info ml-3">İlaç Ekle</button>
+            </form>
+        </td>
+    </tr>
+    <!---->
+</table>

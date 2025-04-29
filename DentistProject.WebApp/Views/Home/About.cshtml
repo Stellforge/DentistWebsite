@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+@model AboutListDto
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <title>DentaCare - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/animate.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/aos.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/jquery.timepicker.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/flaticon.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/icomoon.css">
+    <link rel="stylesheet" href="~/dentacare-gh-pages/css/style.css">
+</head>
+<body>
+
+    <section class="home-slider owl-carousel">
+        <div class="slider-item bread-item" style="background-image: url('../../dentacare-gh-pages/images/bg_1.jpg');" data-stellar-background-ratio="0.5">
+            <div class="overlay"></div>
+            <div class="container" data-scrollax-parent="true">
+                <div class="row slider-text align-items-end">
+                    <div class="col-md-7 col-sm-12 ftco-animate mb-5">
+                        <p class="breadcrumbs" data-scrollax=" properties: { translateY: '70%', opacity: 1.6}"></p>
+                        <h1 class="mb-3" data-scrollax=" properties: { translateY: '70%', opacity: .9}">Hakkımızda</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row d-md-flex">
+                <div class="col-md-6 ftco-animate img about-image order-md-last" style="background-image: url(../../dentacare-gh-pages/images/about.jpg);">
+                </div>
+                <div class="col-md-6 ftco-animate pr-md-5 order-md-first">
+                    <div class="row">
+                        <div class="col-md-12 nav-link-wrap mb-5">
+                            <div class="nav ftco-animate nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <a class="nav-link active" id="v-pills-whatwedo-tab" data-toggle="pill" href="#v-pills-whatwedo" role="tab" aria-controls="v-pills-whatwedo" aria-selected="true">Ne Yapıyoruz</a>
+
+                                <a class="nav-link" id="v-pills-mission-tab" data-toggle="pill" href="#v-pills-mission" role="tab" aria-controls="v-pills-mission" aria-selected="false">Görevimiz</a>
+
+                                <a class="nav-link" id="v-pills-goal-tab" data-toggle="pill" href="#v-pills-goal" role="tab" aria-controls="v-pills-goal" aria-selected="false">Hedefimiz</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12 d-flex align-items-center">
+
+                            <div class="tab-content ftco-animate" id="v-pills-tabContent">
+
+                                <div class="tab-pane fade show active" id="v-pills-whatwedo" role="tabpanel" aria-labelledby="v-pills-whatwedo-tab">
+                                    <div>
+@*                                         <h2 class="mb-4">Yüksek Kaliteli Hizmetler Sunuyoruz</h2>
+ *@                                        <p>@Model?.OurWork</p>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="v-pills-mission" role="tabpanel" aria-labelledby="v-pills-mission-tab">
+                                    <div>
+                                        @* <h2 class="mb-4">Tüm Hastaları Ağırlamak</h2>*@
+                                        <p>@Model?.MissionStatement</p>
+
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="v-pills-goal" role="tabpanel" aria-labelledby="v-pills-goal-tab">
+                                    <div>
+                                        @* <h2 class="mb-4">Müşterilerimizin İhtiyaçlarına Yardımcı Olmak</h2> *@
+                                        <p>@Model?.Target</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+
+
+    <script src="~/dentacare-gh-pages/js/jquery.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/popper.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/bootstrap.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery.easing.1.3.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery.waypoints.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery.stellar.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/aos.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery.animateNumber.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/bootstrap-datepicker.js"></script>
+    <script src="~/dentacare-gh-pages/js/jquery.timepicker.min.js"></script>
+    <script src="~/dentacare-gh-pages/js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="~/dentacare-gh-pages/js/google-map.js"></script>
+    <script src="~/dentacare-gh-pages/js/main.js"></script>
+
+</body>
+</html>

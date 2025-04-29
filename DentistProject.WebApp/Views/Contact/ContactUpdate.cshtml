@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "ContactUpdate";
+    Layout = "~/Views/Shared/_DoktorRandevuLayout.cshtml";
+}
+
+@model ContactDto
+<h1>ContactUpdate</h1>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <div class="header-title">
+                    <h4 class="card-title">İletişim Ekleme</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="new-user-info">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <input type="hidden" asp-for="Id" />
+                            <div class="form-group col-md-12">
+                                <label for="fname">Adres:</label>
+                                <input asp-for="Adress" type="text" class="form-control" id="fname" placeholder="Adres Giriniz" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="lname">İsim:</label>
+                                <input asp-for="Name" type="text" class="form-control" id="lname" placeholder="İsim" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="add1">Telefon-1:</label>
+                                <input asp-for="Phone1" type="tel" class="form-control" id="add1" placeholder="Tel-1" required>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label for="cname">Telefon-2:</label>
+                                <input asp-for="Phone2" type="tel" class="form-control" id="cname" placeholder="Tel-2" required>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label>E-Posta:</label>
+                                <input asp-for="Email" class="form-control" id="selectcountry" placeholder="E-Posta" required>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label>Facebook Link:</label>
+                                <input asp-for="Email" class="form-control" id="selectcountry" placeholder="E-Posta" required>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label>X Link:</label>
+                                <input asp-for="Email" class="form-control" id="selectcountry" placeholder="E-Posta" required>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label>Youtube Link:</label>
+                                <input asp-for="Email" class="form-control" id="selectcountry" placeholder="E-Posta" required>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label>İnstagram:</label>
+                                <input asp-for="Email" class="form-control" id="selectcountry" placeholder="E-Posta" required>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label>Google Map Link:</label>
+                                <input asp-for="Email" class="form-control" id="selectcountry" placeholder="E-Posta" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="cname">Geçerli Olsun Mu:</label>
+                                <input asp-for="Validity" type="checkbox" class="form-control" id="cname" placeholder="Açıklama..">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success">İletişim Ekle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

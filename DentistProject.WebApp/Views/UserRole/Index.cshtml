@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_DoktorRandevuLayout.cshtml";
+}
+
+@model GenericLoadMoreDto<UserListDto>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BlogListe</title>
+</head>
+<body>
+
+
+    <link rel="shortcut icon" href="~/calendify-lite/html/assets/images/favicon.ico" />
+    <link rel="stylesheet" href="~/calendify-lite/html/assets/css/backend-plugin.min.css">
+    <link rel="stylesheet" href="~/calendify-lite/html/assets/css/backend.css?v=1.0.1">
+    <link rel="stylesheet" href="~/calendify-lite/html/assets/vendor/@@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="~/calendify-lite/html/assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css">
+    <link rel="stylesheet" href="~/calendify-lite/html/assets/vendor/remixicon/fonts/remixicon.css">
+    <script src="https://kit.fontawesome.com/f08be16b3f.js" crossorigin="anonymous"></script>
+
+    <h1>User Role Listesi</h1>
+    <table class="table table-bordered">
+        <tr>
+            <td align="center"><strong>Kullanıcı Adı</strong></td>
+            <td align="center"><strong>Eposta</strong></td>
+            <td align="center"><strong>Telefon</strong></td>
+            <td align="center"><strong>Güncelle</strong></td>
+
+        </tr>
+        <!--MVC @@foreach-->
+        @if (Model?.Values?.Count > 0)
+        {
+            @foreach (var item in Model.Values)
+            {
+                <tr>
+                    <td>@item.FullName</td>
+                    <td>@item.Email</td>
+                    <td>@item.Phone </td>
+                    @if (ViewBag.CanUpdate == true)
+                    {
+                        <td align="center"><a href="/ChangeUserRole/@item.Id" class="far fa-pen-to-square" style="color:green; font-size:20px;"></a></td>
+                    }
+                   
+                </tr>
+            }
+
+
+        }
+        <!---->
+    </table>
+</body>
+</html>
+
+

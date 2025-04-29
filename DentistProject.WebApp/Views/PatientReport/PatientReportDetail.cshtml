@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "PatientReportDetail";
+    Layout = "~/Views/Shared/_DoktorRandevuLayout.cshtml";
+}
+
+<h1>PatientReportDetail</h1>
+
+@model PatientReportListDto
+
+@{
+    var medicines = ViewBag.Medicines as GenericLoadMoreDto<PatientReportListDto>;
+}
+
+<link rel="shortcut icon" href="~/calendify-lite/html/assets/images/favicon.ico" />
+<link rel="stylesheet" href="~/calendify-lite/html/assets/css/backend-plugin.min.css">
+<link rel="stylesheet" href="~/calendify-lite/html/assets/css/backend.css?v=1.0.1">
+<link rel="stylesheet" href="~/calendify-lite/html/assets/vendor/@@fortawesome/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="~/calendify-lite/html/assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css">
+<link rel="stylesheet" href="~/calendify-lite/html/assets/vendor/remixicon/fonts/remixicon.css">
+<script src="https://kit.fontawesome.com/f08be16b3f.js" crossorigin="anonymous"></script>
+
+<table class="table table-danger">
+    <tr>
+        <th colspan="4" style="text-align:center; font-size:45px; background-color:lightyellow;">Hasta</th>
+    </tr>
+    <!--MVC-->
+    <tr>
+        <th>TC Kimlik No:</th>
+        <td>@Model?.Patient?.IdentityNumber</td>
+    </tr>
+    <tr>
+        <th>Adı:</th>
+        <td>@Model?.Patient?.User?.Name</td>
+    </tr>
+    <tr>
+        <th>Soy Adı:</th>
+        <td>@Model?.Patient?.User?.Surname</td>
+    </tr>
+    <tr>
+        <th>Doğum Tarihi:</th>
+        <td>@Model?.Patient?.User?.BirthDate</td>
+    </tr>
+    <tr>
+        <th>Cinsiyeti:</th>
+        <td>@Model?.Patient?.User?.Gender</td>
+    </tr>
+    <!---->
+    <tr>
+        <th colspan="4" style="text-align:center; font-size:45px; background-color:lightyellow;">Rapor</th>
+    </tr>
+    <!--MVC-->
+    <tr>
+        <th>Başlık:</th>
+        <td>@Model?.Title</td>
+    </tr>
+    <tr>
+        <th>Açıklama:</th>
+        <td>@Model?.Explanation</td>
+    </tr>
+    <tr>
+        <th>Rapor Türü:</th>
+        <td>@Model?.ReportType</td>
+    </tr>
+    <tr>
+        <th>Rapor Belgesi:</th>
+        <td><a href="/Media/@Model?.FileId" class="btn btn-success">İndir</a></td>
+    </tr>
+    <!---->
+</table>

@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "ServiceUpdate";
+    Layout = "~/Views/Shared/_DoktorRandevuLayout.cshtml";
+}
+
+@model ServiceDto
+<h1>ServiceUpdate</h1>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <div class="header-title">
+                    <h4 class="card-title">Servis Ekleme</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="new-user-info">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <input type="hidden" asp-for="Id" />
+                            <div class="form-group col-md-12">
+                                <label for="fname">Adres:</label>
+                                <input asp-for="Title" type="text" class="form-control" id="fname" placeholder="Başlık girin.." required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="lname">Logo:</label>
+                                <input asp-for="Logo" type="file" class="form-control" id="lname" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="add1">Açıklama:</label>
+                                <input asp-for="Explanation" type="text" class="form-control" id="add1" placeholder="Açıklama girin.." required>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label for="cname">Fiyat:</label>
+                                <input asp-for="Price" type="number" class="form-control" id="cname" placeholder="Fiyat girin.." required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success">Servis Güncelle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
